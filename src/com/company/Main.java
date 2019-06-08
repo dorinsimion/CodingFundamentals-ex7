@@ -16,23 +16,21 @@ public class Main {
             valid=false;
         }
 
-        if(!Pattern.matches(".*[a-z].*",password)) {
-            System.out.println("Minim o litera mica");
-            valid=false;
-        }
+        boolean hasLowerCase =
+                isValid(".*[a-z].*",password,"Minim o litera mica");
+        boolean hasUpperCase =
+                isValid(".*[A-Z].*",password,"Minim o litera mare");
+        boolean hasDigit =
+                isValid(".*\\d.*",password,"Minim un digit!");
 
-        if(!Pattern.matches(".*[A-Z].*",password))
-        {
-            System.out.println("Minim o litera mare");
-            valid=false;
-        }
-
-        if(!Pattern.matches(".*\\d.*",password))
-        {
-            System.out.println("Minim un digit!");
-            valid=false;
-        }
-
+        valid = valid && hasDigit && hasLowerCase && hasUpperCase;
         System.out.println(valid ? "Parola corecta!":"Parola incorecta!");
+    }
+
+    private static boolean isValid(String regex,String password,String message){
+        if(Pattern.matches(regex,password))
+            return true;
+        System.out.println(message);
+        return false;
     }
 }
